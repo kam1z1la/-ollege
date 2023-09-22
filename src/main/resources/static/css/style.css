@@ -1,0 +1,19 @@
+  body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2% 0;
+            text-align: center;
+        }
+        .btn {
+             background-color: #3399CC;
+             color: #ffffff;
+             transition: background-color 0.3s;
+        }
+        .btn:hover {
+             background-color: #ffffff;
+             color: #000000;
+        }
