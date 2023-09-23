@@ -13,7 +13,7 @@ import java.util.Objects;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(schema = "main", name = "news")
+@Table(name = "news")
 @ToString
 public class News {
     @Id

@@ -1,0 +1,32 @@
+body {
+    background: #000;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    margin: 0;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 10px;
+    width: 60%;
+    margin: 0 auto;
+}
+
+#text-input {
+    margin-top: 10px;
+    border: 1px solid #dddddd;
+    padding: 20px;
+    height: 60vh;
+}
+
+.table-container {
+    display: grid;
+    border: 1px solid #000;
+}
+
+.table-cell {
+    border: 1px solid #000;
+    padding: 10px;
+}

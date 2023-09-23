@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .fullscreen-image-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 40%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8); /* Задайте необходимую прозрачность фона */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999; /* Поднимите изображение наверх */
+        }
+
+        .fullscreen-image-container img {
+            max-width: 40%;
+            max-height: 100%;
+            object-fit: contain; /* Заполнение контейнера, сохраняя пропорции */
+            object-position: center; /* Центрирование изображения */
+        }
+
+    </style>
+</head>
+<body>
+
+<img class="fullscreen-image-container" th:src="@{'data:image/jpeg;base64,' + ${photo}}" />
+
+
+</body>
+</html>

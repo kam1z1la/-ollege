@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form th:action="@{/schedule-replacement/create-schedule-replacement}"
+          th:object="${creatingScheduleReplacementDTO}"
+          enctype="multipart/form-data"
+          th:method="post">
+        <div>
+            <label for="date">Date:</label>
+            <input type="date" id="date" th:field="*{postingDate}" />
+        </div>
+        <div>
+            <label for="resources">Resources:</label>
+            <input type="file" id="resources" th:field="*{resources}" multiple="multiple" />
+        </div>
+        <div>
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+</body>
+</html>

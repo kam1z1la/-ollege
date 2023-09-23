@@ -21,7 +21,6 @@ import java.util.List;
 @RequestMapping("/news")
 public class NewsController {
     private final NewsService newsService;
-    private final NewsRepository newsRepository;
     private List<NewsDto> newsDtoList;
 
 //    @GetMapping("/home")
@@ -37,7 +36,8 @@ public class NewsController {
                            @RequestParam(defaultValue = "3") int size,
                            Model model) {
         newsDtoList = new LinkedList<>();
-        newsDtoList = newsService.listToDto(newsRepository.findAll());
+        NewsDto newsDto = new NewsDto();
+        newsDtoList = newsService.getAll();
         model.addAttribute("allNews", newsDtoList)
                 .addAttribute("newsOfPages",
                         newsService.getCollectionOfPages(newsDtoList, PageRequest.of(page, size)));
@@ -51,15 +51,14 @@ public class NewsController {
         return "news/create-news-page";
     }
 
+    @GetMapping("/test")
+    public String test(){
+        return "test";
+    }
+
     @PostMapping("/create")
     public String createPage(@ModelAttribute NewsDto news) {
-        newsRepository.save(News.builder()
-                .header(news.header())
-                .content(news.content())
-                .createTimeAt(LocalTime.now().truncatedTo(ChronoUnit.MINUTES))
-                .createDateAt(LocalDate.now())
-                .photo(news.photo())
-                .build());
+        newsService.createNews(news);
         log.info("The news was successfully create");
         return "redirect:/news/home";
     }
