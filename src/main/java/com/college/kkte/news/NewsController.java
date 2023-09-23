@@ -51,6 +51,11 @@ public class NewsController {
         return "news/create-news-page";
     }
 
+    @GetMapping("/test")
+    public String test(){
+        return "test";
+    }
+
     @PostMapping("/create")
     public String createPage(@ModelAttribute NewsDto news) {
         newsService.createNews(news);

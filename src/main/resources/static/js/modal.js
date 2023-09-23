@@ -31,7 +31,21 @@ window.onclick = function(event) {
 }
 
 
+function getCallModalWindow(url){
+    axios.get(url)
+        .then(response => {
+            modalContent.innerHTML = response.data;
+            modalTemp.appendChild(controllerPanel);
 
+            modalTemp.style.display = 'block';
+    }).catch(error => {
+        // Handle any errors that occur during the request
+        console.info('lox');
+        console.error('Error:', error);
+    });;
+
+
+}
 
 function deleteNewsConfirming(id){
     axios.post('/news/delete-new-confirming?id='+ id)
@@ -60,7 +74,6 @@ function deleteNewsConfirming(id){
         })
         .catch(error => {
             // Handle any errors that occur during the request
-            console.info('lox');
             console.error('Error:', error);
         });
 }
