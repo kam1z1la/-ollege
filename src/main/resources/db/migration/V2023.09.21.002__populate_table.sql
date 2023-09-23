@@ -1,4 +1,4 @@
-insert into main.news (header, content, create_time_at, create_date_at)
+insert into news (header, content, create_time_at, create_date_at)
 values
 ('We refresh web site', 'TEXT', CURRENT_TIMESTAMP, CURRENT_DATE),
 ('Need made main logic', 'TEXT', CURRENT_TIMESTAMP, CURRENT_DATE),
