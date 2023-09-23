@@ -4,6 +4,9 @@ const controllerPanel = document.getElementById('controller-panel');
 const modalContent = document.querySelector('.main-content');
 const span = document.getElementsByClassName("close")[0];
 
+const modalShareTemp = document.getElementById("modal-share-temp");
+const controllerSharePanel = document.getElementById('controller-share-panel');
+
 span.onclick = function() {
     modalTemp.style.display = "none";
     const modalContent = document.querySelector('.main-content');
@@ -65,6 +68,11 @@ function deleteNewsConfirming(id){
         });
 }
 
+function showShare(id) {
+    axios.post('/news/share/'+ id)
+       //что дальше делать хер знает
+}
+
 function openModalRemove(button){
     const id = button.getAttribute('data-news-id');
     const action = document.createElement("button");
@@ -77,8 +85,19 @@ function openModalRemove(button){
     controllerPanel.appendChild(action);
     modalTemp.appendChild(controllerPanel);
     modalTemp.style.display = 'block';
-
 }
 
+function openModalShare(button){
+    const id = button.getAttribute('data-news-id');
+    const action = document.createElement("button");
+    action.className = "button-modal"
+    action.onclick = function (){
+      showShare(id);
+    };
+
+    controllerPanel.appendChild(action);
+    modalShareTemp.appendChild(controllerSharePanel);
+    modalShareTemp.style.display = 'block';
+}
 
 // Modal window

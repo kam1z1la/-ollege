@@ -1,6 +1,8 @@
 package com.college.kkte.news;
 
 import com.college.kkte.dto.NewsDto;
+import com.college.kkte.qrcode.QRCodeGenerator;
+import com.google.zxing.WriterException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
@@ -8,36 +10,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
-import java.util.LinkedList;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.List;
 
 @Slf4j
-//@RestController
 @Controller
+//@RestController
 @RequiredArgsConstructor
 @RequestMapping("/news")
 public class NewsController {
     private final NewsService newsService;
     private List<NewsDto> newsDtoList;
 
-//    @GetMapping("/home")
-//    public Page<NewsDto> homePage(@RequestParam(defaultValue = "0") int page,
-//                                  @RequestParam(defaultValue = "3") int size,
-//                                  Model model) {
-//        List<NewsDto> list = newsService.listToDto(newsRepository.findAll());
-//         return newsService.getCollectionOfPages(list, PageRequest.of(page, size));
-//    }
-
     @GetMapping("/home")
     public String homePage(@RequestParam(defaultValue = "0") int page,
                            @RequestParam(defaultValue = "3") int size,
                            Model model) {
-        newsDtoList = new LinkedList<>();
-        NewsDto newsDto = new NewsDto();
-        newsDtoList = newsService.getAll();
+        newsDtoList = newsService.getAllNews();
         model.addAttribute("allNews", newsDtoList)
                 .addAttribute("newsOfPages",
                         newsService.getCollectionOfPages(newsDtoList, PageRequest.of(page, size)));
@@ -46,8 +36,7 @@ public class NewsController {
 
     @GetMapping("/create")
     public String createPage(Model model) {
-        model.addAttribute("news", new NewsDto(null, null, null,
-                null, null, null));
+        model.addAttribute("news", new NewsDto());
         return "news/create-news-page";
     }
 
@@ -77,6 +66,15 @@ public class NewsController {
         NewsDto newsDto = newsService.findDtoById(id, newsDtoList);
         model.addAttribute("news", newsDto);
         return "news/show-more";
+    }
+
+    @GetMapping("/share/{id}")
+    public String sharePage(@PathVariable Long id, Model model) throws WriterException, IOException {
+        String url = "http://localhost:9999/news/show/" + id;
+
+        model.addAttribute("url", url)
+                .addAttribute("base64Image", newsService.generateQRCode(url));
+        return "news/share-page";
     }
 
     @PostMapping("/delete/{id}")

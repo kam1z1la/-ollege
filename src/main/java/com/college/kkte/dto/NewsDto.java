@@ -4,7 +4,6 @@ package com.college.kkte.dto;
 import com.college.kkte.mapper.Mapper;
 import com.college.kkte.news.News;
 import lombok.*;
-import org.hibernate.engine.spi.Managed;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -16,18 +15,23 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NewsDto implements Mapper<NewsDto, News> {
-        Long id;
-        String header;
-        String content;
-        LocalTime createTimeAt;
-        LocalDate createDateAt;
-        byte[] photo;
+    private Long id;
+    private String header;
+    private String content;
+    private LocalTime createTimeAt;
+    private LocalDate createDateAt;
+    private byte[] photo;
 
     @Override
     public NewsDto toDto(News entity) {
-        return new NewsDto(entity.getId(), entity.getHeader(),
-                entity.getContent(), entity.getCreateTimeAt(),
-                entity.getCreateDateAt(), entity.getPhoto());
+        return NewsDto.builder()
+                .id(entity.getId())
+                .header(entity.getHeader())
+                .content(entity.getContent())
+                .createDateAt(entity.getCreateDateAt())
+                .createTimeAt(entity.getCreateTimeAt())
+                .photo(entity.getPhoto())
+                .build();
     }
 
     @Override
