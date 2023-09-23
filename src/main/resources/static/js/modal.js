@@ -47,7 +47,6 @@ function getCallModalWindow(url){
 
 }
 
-
 function deleteNewsConfirming(id){
     axios.post('/news/delete-new-confirming?id='+ id)
         .then(response => {
