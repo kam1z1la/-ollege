@@ -1,4 +1,4 @@
-create table if not exists main.news (
+create table if not exists news (
   id             bigserial,
   header         varchar(100),
   content        text,
@@ -8,4 +8,4 @@ create table if not exists main.news (
   primary key (id)
 );
 
-create unique index index_for_table_news on main.news(id, header);
+create unique index index_for_table_news on news(id, header);

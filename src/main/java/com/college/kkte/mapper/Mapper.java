@@ -1,17 +1,20 @@
 package com.college.kkte.mapper;
 
+import java.io.IOException;
 import java.util.List;
 
-public interface Mapper<E,D> {
-    E toEntity(D dto);
+
+public interface Mapper<D, E> {
 
     D toDto(E entity);
 
-    default List<D> listToDto(List<E> listEntities) {
-        return listEntities.stream().map(this::toDto).toList();
+    E toEntity(D dto) ;
+
+    default List<D> toDtoList(List<E> entityList) {
+        return entityList.stream().map(this::toDto).toList();
     }
 
-    default List<E> listToEntity(List<D> listDto) {
-        return listDto.stream().map(this::toEntity).toList();
+    default List<E> toEntityList(List<D> dtoList) {
+        return dtoList.stream().map(this::toEntity).toList();
     }
 }
