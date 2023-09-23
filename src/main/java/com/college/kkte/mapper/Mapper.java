@@ -1,6 +1,5 @@
 package com.college.kkte.mapper;
 
-import java.io.IOException;
 import java.util.List;
 
 

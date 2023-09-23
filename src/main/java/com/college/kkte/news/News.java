@@ -31,7 +31,6 @@ public class News {
     @Column(name = "create_date_at", nullable = false)
     private LocalDate createDateAt;
 
-//    @Lob
     private byte[] photo;
 
     @Override
