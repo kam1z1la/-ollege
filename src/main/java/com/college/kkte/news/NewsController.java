@@ -1,6 +1,7 @@
 package com.college.kkte.news;
 
 import com.college.kkte.dto.NewsDto;
+import com.college.kkte.dto.QrCodeDto;
 import com.college.kkte.qrcode.QRCodeGenerator;
 import com.google.zxing.WriterException;
 import lombok.RequiredArgsConstructor;
@@ -73,12 +74,17 @@ public class NewsController {
         return "news/show-more";
     }
 
-    @GetMapping("/share/{id}")
-    public String sharePage(@PathVariable Long id, Model model) throws WriterException, IOException {
+    @GetMapping("share{id}")
+    public String sharePage(@RequestParam long id,
+                               Model model) throws WriterException, IOException {
+
         String url = "http://localhost:9999/news/show/" + id;
 
-        model.addAttribute("url", url)
-                .addAttribute("base64Image", newsService.generateQRCode(url));
+        String qrCode = new QRCodeGenerator()
+                .getQRCode(new QRCodeGenerator()
+                        .createImage(url, 200,200));
+        model.addAttribute("qrCode", qrCode);
+        model.addAttribute("url", url);
         return "news/share-page";
     }
 

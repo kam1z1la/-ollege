@@ -4,9 +4,6 @@ const controllerPanel = document.getElementById('controller-panel');
 const modalContent = document.querySelector('.main-content');
 const span = document.getElementsByClassName("close")[0];
 
-const modalShareTemp = document.getElementById("modal-share-temp");
-const controllerSharePanel = document.getElementById('controller-share-panel');
-
 span.onclick = function() {
     modalTemp.style.display = "none";
     const modalContent = document.querySelector('.main-content');
@@ -41,9 +38,8 @@ function getCallModalWindow(url){
             modalTemp.appendChild(controllerPanel);
 
             modalTemp.style.display = 'block';
-    }).catch(error => {
+        }).catch(error => {
         // Handle any errors that occur during the request
-        console.info('lox');
         console.error('Error:', error);
     });;
 
@@ -53,7 +49,7 @@ function getCallModalWindow(url){
 function deleteNewsConfirming(id){
     axios.post('/news/delete-new-confirming?id='+ id)
         .then(response => {
-            if(response.data()){
+            if(response.data){
                 const elementToDelete = document.getElementById(id);
                 if(elementToDelete){
                     elementToDelete.remove();
@@ -81,36 +77,20 @@ function deleteNewsConfirming(id){
         });
 }
 
-function showShare(id) {
-    axios.post('/news/share/'+ id)
-       //что дальше делать хер знает
-}
-
 function openModalRemove(button){
     const id = button.getAttribute('data-news-id');
     const action = document.createElement("button");
     action.textContent = "Add Column";
     action.className = "button-modal"
     action.onclick = function (){
-      deleteNewsConfirming(id);
+        deleteNewsConfirming(id);
     };
 
     controllerPanel.appendChild(action);
     modalTemp.appendChild(controllerPanel);
     modalTemp.style.display = 'block';
+
 }
 
-function openModalShare(button){
-    const id = button.getAttribute('data-news-id');
-    const action = document.createElement("button");
-    action.className = "button-modal"
-    action.onclick = function (){
-      showShare(id);
-    };
-
-    controllerPanel.appendChild(action);
-    modalShareTemp.appendChild(controllerSharePanel);
-    modalShareTemp.style.display = 'block';
-}
 
 // Modal window

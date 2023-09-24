@@ -5,10 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.*;
@@ -29,18 +26,19 @@ public class ScheduleReplacementController {
         return "/schedule-replacement/schedule-replacement-page";
     }
 
+    @GetMapping("remove")
+    public String removeById(@RequestParam("id") long id){
+        if(scheduleReplacementService.removeScheduleReplacement(id))
+            return "success";
+        return "success";
+    }
+
+
     @GetMapping("editor")
     public String editor(Model model){
 
 
         return "/editor";
-    }
-
-    @GetMapping("test")
-    public String test(Model model){
-
-
-        return "/test";
     }
 
     @GetMapping("/creating-schedule-replacement-page")
