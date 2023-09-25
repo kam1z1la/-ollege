@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Home</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -44,31 +44,15 @@
                 <a th:href="'/news/edit/' + ${news.id}" class="btn btn-sm btn-outline-dark">Edit</a>
             </td>
             <td>
-                <form th:action="@{/news/share/{id}(id=${news.id})}" method="GET">
-                    <a th:href="'/news/share/' + ${news.id}" class="btn btn-sm btn-outline-dark">Share</a>
-                </form>
+                <button class="btn btn-sm btn-outline-dark" onclick="getCallModalWindow('/news/share?id=' + this.getAttribute('data-news-id'))" th:data-news-id="${news.id}"  type="button">Show</button>
 
-                <!--                MODAL SHARE-->
-                <!--                <form th:action="@{/news/share/{id}(id=${news.id})}" method="GET">-->
-                <!--                    <button class="btn btn-sm btn-outline-dark" onclick="openModalShare(this)"-->
-                <!--                            th:data-news-id="${news.id}" type="button">Share-->
-                <!--                    </button>-->
-                <!--                </form>-->
             </td>
             <td>
-                <form th:action="@{/news/delete/{id}(id=${news.id})}" method="POST">
-                    <button class="btn btn-sm btn-outline-dark" type="submit">Delete</button>
-                </form>
-
-                <!--                Ó ÌÅÍß ÊÎÄ ÍÅ ÐÀÁÎÒÀË -->
-                <!--                <button class="btn btn-sm btn-outline-dark" onclick="openModalRemove(this)"&ndash;&gt;-->
-                <!--                    th:data-news-id="${news.id}"  type="button">Delete</button>-->
+                <button class="btn btn-sm btn-outline-dark" onclick="openModalRemove(this)" th:data-news-id="${news.id}"  type="button">Delete</button>
             </td>
         </tr>
         </tbody>
     </table>
-
-    <button class="btn btn-sm btn-outline-dark" onclick="getCallModalWindow('/news/test')"  type="button">Delete</button>
 
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
@@ -104,30 +88,6 @@
             </div>
         </div>
     </div>
-
-
-    <!--    MODAL REALISATION-->
-    <!--    <div id="modal-share-temp" class="modal">-->
-    <!--        <div class="modal-content">-->
-    <!--            <div>-->
-    <!--                <img th:src="@{'data:image/png;base64,' + ${base64Image}}" alt="QR Code"/>-->
-    <!--            </div>-->
-
-    <!--            <input type="text" th:value="${url}" id="myInput" readonly>-->
-    <!--            <button onclick="copyText()">Copy text</button>-->
-
-    <!--            <div class="buttons">-->
-    <!--                <button type="button" onclick="window.location.href='/news/home'">Return</button>-->
-    <!--            </div>-->
-
-    <!--            <div class="main-content">-->
-
-    <!--            </div>-->
-    <!--                <div style="padding-top: 10px" id="controller-share-panel">-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--    </div>-->
-
 </div>
 </body>
 <script src="/js/copyText.js"></script>

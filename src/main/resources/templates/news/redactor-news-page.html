@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Rich Text Editor</title>
@@ -125,7 +125,7 @@
         </div>
     </div>
 
-    <form th:action="@{/news/create}" method="post" class="update-news-form">
+    <form th:action="${pathRequest}" method="post" class="update-news-form">
 
         <div>
             <input type="text" th:value="${news.header}" id="create-header" name="header" required
@@ -160,7 +160,7 @@
 </div>
 
 <script src="/js/editor.js"></script>
-<script src="/js/test.js"></script>
+<script src="/js/readactor-news-page.js"></script>
 
 </body>
 </html>

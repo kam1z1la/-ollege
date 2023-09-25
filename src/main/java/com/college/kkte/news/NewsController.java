@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
 
@@ -37,7 +36,8 @@ public class NewsController {
     @GetMapping("/create")
     public String createPage(Model model) {
         model.addAttribute("news", new NewsDto());
-        return "news/create-news-page";
+        model.addAttribute("pathRequest", "/news/create");
+        return "news/redactor-news-page";
     }
 
     @GetMapping("/test")
@@ -56,7 +56,8 @@ public class NewsController {
     public String editPage(@PathVariable Long id, Model model) {
         NewsDto newsDto = newsService.findDtoById(id, newsDtoList);
         model.addAttribute("news", newsDto);
-        return "news/update-news-page";
+        model.addAttribute("pathRequest", "/news/edit/");
+        return "news/redactor-news-page";
     }
 
     @PostMapping("/edit/{id}")
@@ -73,23 +74,17 @@ public class NewsController {
         return "news/show-more";
     }
 
-    @GetMapping("/share/{id}")
-    public String sharePage(@PathVariable Long id, Model model) throws WriterException, IOException {
+    @GetMapping("share{id}")
+    public String sharePage(@RequestParam long id,
+                               Model model) throws WriterException, IOException {
+
         String url = "http://localhost:9999/news/show/" + id;
 
-        model.addAttribute("url", url)
-                .addAttribute("base64Image", newsService.generateQRCode(url));
+        String qrCode = new QRCodeGenerator()
+                .getQRCode(new QRCodeGenerator()
+                        .createImage(url, 200,200));
+        model.addAttribute("qrCode", qrCode);
+        model.addAttribute("url", url);
         return "news/share-page";
-    }
-
-    @PostMapping("/delete/{id}")
-    public String deleteNews(@PathVariable Long id) {
-        try {
-            newsService.deleteNewsById(id);
-            log.info("The news was successfully deleted");
-        } catch (NullPointerException e) {
-            log.error("News not found", e);
-        }
-        return "redirect:/news/home";
     }
 }

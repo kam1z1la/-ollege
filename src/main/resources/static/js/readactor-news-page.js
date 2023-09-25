@@ -6,6 +6,21 @@ const span = document.getElementsByClassName("close")[0];
 const modalContent = document.querySelector('.main-content');
 const tableList = [];
 
+
+function insertSource(source) {
+    editableDiv.innerHTML = source.value;
+}
+insertSource(contentInput);
+const currentPath = window.location.pathname;
+
+if (currentPath.startsWith('/news/edit/')) {
+    const variableValue = currentPath.replace('/news/edit/', '');
+
+    insertSource(contentInput);
+
+    console.log("Значение переменной:", variableValue);
+}
+
 // Modal window
 span.onclick = function() {
     modalTemp.style.display = "none";
@@ -171,8 +186,8 @@ function addNewTable(){
     }
 }
 
-function createSpace(){
 
+function createSpace(){
     editableDiv.appendChild(document.createElement("br"));
 }
 

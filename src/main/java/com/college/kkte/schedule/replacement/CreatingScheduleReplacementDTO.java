@@ -42,7 +42,6 @@ public class CreatingScheduleReplacementDTO implements Mapper<CreatingScheduleRe
     }
 
     private  byte[] toByteArray(List<MultipartFile> photos) {
-
         return null;
     }
 }
