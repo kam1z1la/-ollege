@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Home</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -54,8 +54,6 @@
         </tbody>
     </table>
 
-    <button class="btn btn-sm btn-outline-dark" onclick="getCallModalWindow('/news/test')"  type="button">Delete</button>
-
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
             <li th:if="${newsOfPages.number > 0}" class="page-item">
@@ -90,30 +88,6 @@
             </div>
         </div>
     </div>
-
-
-    <!--    MODAL REALISATION-->
-    <!--    <div id="modal-share-temp" class="modal">-->
-    <!--        <div class="modal-content">-->
-    <!--            <div>-->
-    <!--                <img th:src="@{'data:image/png;base64,' + ${base64Image}}" alt="QR Code"/>-->
-    <!--            </div>-->
-
-    <!--            <input type="text" th:value="${url}" id="myInput" readonly>-->
-    <!--            <button onclick="copyText()">Copy text</button>-->
-
-    <!--            <div class="buttons">-->
-    <!--                <button type="button" onclick="window.location.href='/news/home'">Return</button>-->
-    <!--            </div>-->
-
-    <!--            <div class="main-content">-->
-
-    <!--            </div>-->
-    <!--                <div style="padding-top: 10px" id="controller-share-panel">-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--    </div>-->
-
 </div>
 </body>
 <script src="/js/copyText.js"></script>
