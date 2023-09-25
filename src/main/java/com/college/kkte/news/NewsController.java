@@ -1,7 +1,6 @@
 package com.college.kkte.news;
 
 import com.college.kkte.dto.NewsDto;
-import com.college.kkte.dto.QrCodeDto;
 import com.college.kkte.qrcode.QRCodeGenerator;
 import com.google.zxing.WriterException;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
 
@@ -38,7 +36,8 @@ public class NewsController {
     @GetMapping("/create")
     public String createPage(Model model) {
         model.addAttribute("news", new NewsDto());
-        return "news/create-news-page";
+        model.addAttribute("pathRequest", "/news/create");
+        return "news/redactor-news-page";
     }
 
     @GetMapping("/test")
@@ -57,7 +56,8 @@ public class NewsController {
     public String editPage(@PathVariable Long id, Model model) {
         NewsDto newsDto = newsService.findDtoById(id, newsDtoList);
         model.addAttribute("news", newsDto);
-        return "news/update-news-page";
+        model.addAttribute("pathRequest", "/news/edit/");
+        return "news/redactor-news-page";
     }
 
     @PostMapping("/edit/{id}")
@@ -86,16 +86,5 @@ public class NewsController {
         model.addAttribute("qrCode", qrCode);
         model.addAttribute("url", url);
         return "news/share-page";
-    }
-
-    @PostMapping("/delete/{id}")
-    public String deleteNews(@PathVariable Long id) {
-        try {
-            newsService.deleteNewsById(id);
-            log.info("The news was successfully deleted");
-        } catch (NullPointerException e) {
-            log.error("News not found", e);
-        }
-        return "redirect:/news/home";
     }
 }
