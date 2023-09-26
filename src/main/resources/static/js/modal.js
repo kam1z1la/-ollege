@@ -80,7 +80,7 @@ function deleteNewsConfirming(id){
 function openModalRemove(button){
     const id = button.getAttribute('data-news-id');
     const action = document.createElement("button");
-    action.textContent = "Add Column";
+    action.textContent = "Delete";
     action.className = "button-modal"
     action.onclick = function (){
         deleteNewsConfirming(id);
