@@ -2,34 +2,53 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <style>
-        .fullscreen-image-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 40%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8); /* Задайте необходимую прозрачность фона */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 999; /* Поднимите изображение наверх */
-        }
-
-        .fullscreen-image-container img {
-            max-width: 40%;
-            max-height: 100%;
-            object-fit: contain; /* Заполнение контейнера, сохраняя пропорции */
-            object-position: center; /* Центрирование изображения */
-        }
-
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заміни</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/css/schedule.css">
 </head>
 <body>
+<header>
 
-<img class="fullscreen-image-container" th:src="@{'data:image/jpeg;base64,' + ${photo}}" />
+</header>
 
+<main>
+    <!-- Gallery -->
+    <div class="gallery">
+        <img class="fullscreen-image-container" th:src="@{'data:image/jpeg;base64,' + ${photo}}" />
+    </div>
 
+    <div class="date-picker">
+        <form th:action="@{/schedule-replacement/schedule-replacement-page}" th:object="${getDateDto}" th:method="post">
+        <label for="selected-date">Виберіть дату:</label>
+            <input type="text" th:field="*{date}" id="selected-date" readonly>
+            <button type="submit" id="submit-button">Відправити</button>
+        </form>
+    </div>
+</main>
+
+<footer>
+
+</footer>
+<script>
+    $(function() {
+        // Ініціалізація календаря
+        $("#selected-date").datepicker();
+
+        // Обробка вибору дати
+        $("#selected-date").change(function() {
+            var selectedDate = $(this).val();
+            // Додайте код для збереження вибраної дати в текстовому полі
+        });
+
+        // Обробка натискання кнопки "Відправити"
+        $("#submit-button").click(function() {
+            var selectedDate = $("#selected-date").val();
+            // Додайте код для відправки вибраної дати на сервер або іншої дії
+        });
+    })
+</script>
 </body>
-</html>
+

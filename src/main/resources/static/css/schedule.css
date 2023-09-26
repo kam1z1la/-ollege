@@ -1,0 +1,13 @@
+main
+{
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: w;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+main img {
+    max-width: 100%;
+    height: auto;
+}
