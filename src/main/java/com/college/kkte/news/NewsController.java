@@ -63,7 +63,7 @@ public class NewsController {
     public String editPage(@PathVariable Long id, Model model) {
         NewsDto newsDto = newsService.findDtoById(id, newsDtoList);
         model.addAttribute("news", newsDto);
-        model.addAttribute("pathRequest", "/news/edit/");
+        model.addAttribute("pathRequest", "/news/edit/"+newsDto.getId());
         return "news/redactor-news-page";
     }
 
