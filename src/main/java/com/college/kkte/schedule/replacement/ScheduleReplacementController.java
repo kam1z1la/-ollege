@@ -16,13 +16,26 @@ import java.util.*;
 public class ScheduleReplacementController {
     private final ScheduleReplacementService scheduleReplacementService;
 
-    @GetMapping("schedule-replacement-page")
-    public String getScheduleReplacement(Model model){
-
-        List<ScheduleReplacement> scheduleReplacements = scheduleReplacementService.getAllScheduleReplacementByPostingDate(new Date(123, 8, 30));
+    @PostMapping("schedule-replacement-page")
+    public String getScheduleReplacement(@ModelAttribute GetDateDto dto,
+                                         BindingResult result,
+                                         Model model){
+        if(result.hasErrors()){
+            model.addAttribute("getDateDto", new GetDateDto(new Date()));
+            return "/schedule-replacement/schedule-replacement-page";
+        }
+        List<ScheduleReplacement> scheduleReplacements = scheduleReplacementService.getAllScheduleReplacementByPostingDate(dto.date());
+        if(scheduleReplacements.isEmpty()){
+            return "/schedule-replacement/schedule-replacement-page";
+        }
         String base64String = Base64.getEncoder().encodeToString(scheduleReplacements.get(0).getResource());
         model.addAttribute("photo", base64String);
-        //model.addAttribute("photo", scheduleReplacements.get(1).getResource().toString());
+        return "/schedule-replacement/schedule-replacement-page";
+    }
+
+    @GetMapping("schedule-replacement-page")
+    public String getScheduleReplacement(Model model){
+        model.addAttribute("getDateDto", new GetDateDto(new Date()));
         return "/schedule-replacement/schedule-replacement-page";
     }
 
@@ -31,14 +44,6 @@ public class ScheduleReplacementController {
         if(scheduleReplacementService.removeScheduleReplacement(id))
             return "success";
         return "success";
-    }
-
-
-    @GetMapping("editor")
-    public String editor(Model model){
-
-
-        return "/editor";
     }
 
     @GetMapping("/creating-schedule-replacement-page")

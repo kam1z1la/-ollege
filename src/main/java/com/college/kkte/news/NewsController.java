@@ -15,12 +15,19 @@ import java.util.List;
 
 @Slf4j
 @Controller
-//@RestController
 @RequiredArgsConstructor
 @RequestMapping("/news")
 public class NewsController {
     private final NewsService newsService;
     private List<NewsDto> newsDtoList;
+
+
+    @GetMapping("/main")
+    public String mainPage(){
+        return "main-page";
+    }
+
+
 
     @GetMapping("/home")
     public String homePage(@RequestParam(defaultValue = "0") int page,

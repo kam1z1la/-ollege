@@ -128,7 +128,8 @@
     <form th:action="${pathRequest}" method="post" class="update-news-form">
 
         <div>
-            <input type="text" th:value="${news.header}" id="create-header" name="header" required
+            <label th:for="header" th:text="Header "/>
+            <input type="text" th:for="header" th:value="${news.header}" id="create-header" name="header" required
                    placeholder="Enter the title" class="adv-option-button"/>
         </div>
 
